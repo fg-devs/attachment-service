@@ -8,10 +8,15 @@ edition = "2021"
 [dependencies]
 anyhow = "1.0.56"
 axum = "0.5.1"
-diesel = { version = "1.4.8", features = ["postgres"] }
+dotenv = "0.15.0"
+lazy_static = "1.4.0"
 prost = "0.10.0"
+regex = "1.5.5"
+reqwest = "0.11.10"
 tokio = { version = "1.17.0", features = ["macros", "rt-multi-thread"] }
 tonic = "0.7.1"
+tower-http = { version = "0.2.5", features = ["fs"] }
+uuid = { version = "0.8.2", features = ["v4"] }
 
 [build-dependencies]
 tonic-build = "0.7.0"

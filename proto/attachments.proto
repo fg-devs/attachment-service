@@ -2,27 +2,14 @@ syntax = "proto3";
 package attachments;
 
 service Attachments {
-  rpc CreateAttachment (NewAttachmentRequest) returns (AttachmentReply);
-  rpc RetrieveAttachment (RetrieveAttachmentRequest) returns (AttachmentReply);
+  rpc CreateAttachment (NewAttachmentRequest) returns (Attachment);
 }
 
 message NewAttachmentRequest {
   string url = 1;
 }
 
-message RetrieveAttachmentRequest {
-  UUID uuid = 1;
-}
-
-message AttachmentReply {
-  Attachment attachment = 1;
-}
-
 message Attachment {
-  UUID uuid = 1;
+  string uuid = 1;
   string url = 2;
-}
-
-message UUID {
-  string value = 1;
 }

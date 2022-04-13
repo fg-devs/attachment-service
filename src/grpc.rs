@@ -1,19 +1,23 @@
+use std::env;
 use anyhow::Result;
 use tonic::transport::Server;
 use crate::grpc::attachments::{ImplementedAttachmentsServer, AttachmentsServer};
 
-mod attachments;
+pub(crate) mod attachments;
 
 pub async fn start() -> Result<()>  {
-    let addr = "[::1]:50051".parse()?;
+    let addr = format!("[::1]:{}", env::var("GRPC_PORT")?).parse()?;
     let greeter = ImplementedAttachmentsServer::default();
 
-    println!("AttachmentsServer listening on {}", addr);
+    tokio::spawn(async move {
+        Server::builder()
+            .add_service(AttachmentsServer::new(greeter))
+            .serve(addr)
+            .await
+            .expect("Unable to start AttachmentsServer");
+    });
 
-    Server::builder()
-        .add_service(AttachmentsServer::new(greeter))
-        .serve(addr)
-        .await?;
+    println!("AttachmentsServer listening on {}", addr);
 
     Ok(())
 }
