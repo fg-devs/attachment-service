@@ -1,0 +1,27 @@
+syntax = "proto3";
+package attachments;
+
+service Attachments {
+  rpc CreateAttachment (AttachmentRequest) returns (AttachmentReply);
+}
+
+message AttachmentRequest {
+  File attachment = 1;
+}
+
+message AttachmentReply {
+  string filename = 1;
+  Status status = 2;
+}
+
+message File {
+  bytes content = 1;
+}
+
+
+enum Status {
+  PENDING = 0;
+  IN_PROGRESS = 1;
+  SUCCESS = 2;
+  FAILED = 3;
+}
