@@ -9,7 +9,7 @@ mod services;
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     dotenv().ok();
 
-    if let Ok(_) = Files::setup() {
+    if Files::setup().is_ok() {
         // TODO: Log
     }
 

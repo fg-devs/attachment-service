@@ -1,6 +1,6 @@
 FROM rust:1.60.0-alpine AS builder
 
-RUN apk add cmake musl-dev build-base
+RUN apk add cmake musl-dev build-base libressl-dev
 
 WORKDIR /src
 COPY . .
