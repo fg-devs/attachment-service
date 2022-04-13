@@ -2,26 +2,27 @@ syntax = "proto3";
 package attachments;
 
 service Attachments {
-  rpc CreateAttachment (AttachmentRequest) returns (AttachmentReply);
+  rpc CreateAttachment (NewAttachmentRequest) returns (AttachmentReply);
+  rpc RetrieveAttachment (RetrieveAttachmentRequest) returns (AttachmentReply);
 }
 
-message AttachmentRequest {
-  File attachment = 1;
+message NewAttachmentRequest {
+  string url = 1;
+}
+
+message RetrieveAttachmentRequest {
+  UUID uuid = 1;
 }
 
 message AttachmentReply {
-  string filename = 1;
-  Status status = 2;
+  Attachment attachment = 1;
 }
 
-message File {
-  bytes content = 1;
+message Attachment {
+  UUID uuid = 1;
+  string url = 2;
 }
 
-
-enum Status {
-  PENDING = 0;
-  IN_PROGRESS = 1;
-  SUCCESS = 2;
-  FAILED = 3;
+message UUID {
+  string value = 1;
 }
