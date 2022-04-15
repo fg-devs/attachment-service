@@ -23,6 +23,5 @@ RUN apt-get install -y cmake build-essential libssl-dev pkg-config
 WORKDIR /app
 
 COPY --from=builder /src/target/release/attachment-service /usr/local/bin/attachment-service
-COPY --from=builder /src/.env /app/.env
 
 CMD ["attachment-service"]

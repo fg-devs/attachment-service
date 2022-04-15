@@ -3,6 +3,8 @@ services:
   attachment-service:
     build: .
     restart: always
+    env_file:
+      - .env
     ports:
       - ${GRPC_PORT}:${GRPC_PORT}
       - ${HTTP_PORT}:${HTTP_PORT}
