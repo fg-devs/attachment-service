@@ -1,11 +1,12 @@
+use attachments_proto::attachments_server::Attachments;
+use attachments_proto::{Attachment, NewAttachmentRequest};
 use std::env;
 use tonic::{Request, Response, Status};
+use tracing::*;
 use uuid::Uuid;
-use attachments_proto::attachments_server::{Attachments};
-use attachments_proto::{NewAttachmentRequest, Attachment};
 
-pub use attachments_proto::attachments_server::AttachmentsServer;
 use crate::Files;
+pub use attachments_proto::attachments_server::AttachmentsServer;
 
 pub mod attachments_proto {
     tonic::include_proto!("attachments");
@@ -16,11 +17,19 @@ pub struct ImplementedAttachmentsServer;
 
 #[tonic::async_trait]
 impl Attachments for ImplementedAttachmentsServer {
-    async fn create_attachment(&self, request: Request<NewAttachmentRequest>) -> Result<Response<Attachment>, Status> {
+    async fn create_attachment(
+        &self,
+        request: Request<NewAttachmentRequest>,
+    ) -> Result<Response<Attachment>, Status> {
+        info!("received create attachment request");
+
+        trace!("parsing url");
         let file_url = request.into_inner().url;
+        debug!("finished parsing url: {}", file_url);
 
         let ext = Files::get_extension(&file_url)?;
         let bytes = Files::fetch(&file_url).await?;
+        info!("fetched attachment: {}", file_url);
 
         let uuid = Uuid::new_v4().to_string();
 
@@ -30,12 +39,10 @@ impl Attachments for ImplementedAttachmentsServer {
 
         let url = format!("{}/{}", env::var("CDN_URI").unwrap(), filename);
 
-        let attachment = Attachment {
-            url,
-            uuid,
-        };
+        let attachment = Attachment { url, uuid };
+
+        tracing::debug!("sending response");
 
         Ok(Response::new(attachment))
     }
 }
-

@@ -4,7 +4,8 @@ services:
     build: .
     restart: always
     ports:
-      - "50051:50051"
+      - ${GRPC_PORT}:${GRPC_PORT}
+      - ${HTTP_PORT}:${HTTP_PORT}
     volumes:
       - attachment-files:/app/files
     networks:
