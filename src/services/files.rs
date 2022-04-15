@@ -15,7 +15,6 @@ pub struct Files;
 
 impl Files {
     pub fn setup() -> Result<()> {
-        fs::create_dir("logs")?;
         fs::create_dir("files")?;
 
         Ok(())
