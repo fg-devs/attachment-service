@@ -10,7 +10,6 @@ path = "src/main.rs"
 [dependencies]
 anyhow = "1.0.56"
 axum = "0.5.1"
-chrono = "0.4.19"
 dotenv = "0.15.0"
 lazy_static = "1.4.0"
 prost = "0.10.0"
