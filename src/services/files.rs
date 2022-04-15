@@ -7,8 +7,6 @@ use std::io::Cursor;
 use tonic::Status;
 use tracing::*;
 
-// (\\.[^.]+)$
-
 lazy_static! {
     static ref FILE_EXT_RE: Regex = Regex::new("(\\.[^.]+)$").unwrap();
 }
