@@ -1,24 +1,13 @@
-FROM rust:slim-bullseye AS builder
+FROM rust:alpine AS builder
 
-RUN apt-get update; apt-get upgrade -y
-RUN apt-get install -y cmake build-essential libssl-dev pkg-config
+RUN apk add cmake musl-dev build-base
 
 WORKDIR /src
-
-# https://stackoverflow.com/questions/58473606/cache-rust-dependencies-with-docker-build
-RUN echo "fn main() {}" > dummy.rs
-COPY Cargo.toml .
-RUN sed -i 's#src/main.rs#dummy.rs#' Cargo.toml
-RUN cargo build --release
-RUN sed -i 's#dummy.rs#src/main.rs#' Cargo.toml
 
 COPY . .
 RUN cargo build --release
 
-FROM debian:bullseye-slim AS runner
-
-RUN apt-get update; apt-get upgrade -y
-RUN apt-get install -y cmake build-essential libssl-dev pkg-config
+FROM alpine:latest AS runner
 
 WORKDIR /app
 
