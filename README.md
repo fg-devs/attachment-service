@@ -16,11 +16,6 @@ this can be done by copying `.env.example` and filling in the values
 
 ## Running
 
-You first need to init submodules with 
-```bash
-git submodule update --init --recursive
-```
-
 ### Docker
 The `docker-compose.yml` is as follows, note that this differs from the `docker-compose.yml` in the repository.
 ```yaml
@@ -44,5 +39,15 @@ networks:
 ```
 
 ### Native
-Running natively is super simple, just use `cargo run --release`
+
+You first need to init submodules with 
+```bash
+git submodule update --init --recursive
+```
+
+Then you can use 
+```
+cargo run --release
+```
+
 
