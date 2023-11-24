@@ -27,6 +27,9 @@ impl Attachments for ImplementedAttachmentsServer {
         let file_url = request.into_inner().url;
         debug!("finished parsing url: {}", file_url);
 
+        // remove if broken
+        file_url = file_url.split('?').next().unwrap_or(file_url);
+
         let ext = Files::get_extension(&file_url)?;
         let bytes = Files::fetch(&file_url).await?;
         info!("fetched attachment: {}", file_url);
