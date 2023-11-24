@@ -28,7 +28,7 @@ impl Attachments for ImplementedAttachmentsServer {
         debug!("finished parsing url: {}", file_url);
 
         // remove if broken
-        file_url = file_url.split('?').next().unwrap_or(file_url);
+        file_url = file_url.split('?').next().unwrap_or(file_url).to_string();
 
         let ext = Files::get_extension(&file_url)?;
         let bytes = Files::fetch(&file_url).await?;
