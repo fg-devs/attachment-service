@@ -21,6 +21,7 @@ tower-http = { version = "0.2.5", features = ["fs", "trace"] }
 tracing = "0.1.34"
 tracing-subscriber = { version = "0.3.11", features = ["env-filter"] }
 uuid = { version = "0.8.2", features = ["v4"] }
+url = "2.2.2"
 
 [build-dependencies]
 tonic-build = "0.7.0"
