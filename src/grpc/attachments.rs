@@ -4,6 +4,7 @@ use std::env;
 use tonic::{Request, Response, Status};
 use tracing::*;
 use uuid::Uuid;
+use url::Url;
 
 use crate::Files;
 pub use attachments_proto::attachments_server::AttachmentsServer;
@@ -24,7 +25,14 @@ impl Attachments for ImplementedAttachmentsServer {
         info!("received create attachment request");
 
         trace!("parsing url");
-        let file_url = request.into_inner().url;
+        let mut file_url = request.into_inner().url;
+
+        // Parse the URL and strip off the query parameters
+        if let Ok(mut parsed_url) = Url::parse(&file_url) {
+            parsed_url.set_query(None);
+            file_url = parsed_url.to_string();
+        }
+
         debug!("finished parsing url: {}", file_url);
 
         let ext = Files::get_extension(&file_url)?;

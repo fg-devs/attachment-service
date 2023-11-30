@@ -35,4 +35,4 @@ jobs:
           context: .
           platforms: linux/amd64
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/fg-devs/attachment-service:latest
+          tags: ghcr.io/survivalquestmc/attachment-service:latest
