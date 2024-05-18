@@ -8,19 +8,19 @@ name = "attachment-service"
 path = "src/main.rs"
 
 [dependencies]
-anyhow = "1.0.56"
-axum = "0.5.1"
+anyhow = "1.0.86"
+axum = "0.7.5"
 dotenv = "0.15.0"
 lazy_static = "1.4.0"
-prost = "0.10.0"
-regex = "1.5.5"
-reqwest = { version = "0.11.10", default-features = false, features = ["rustls-tls"] }
-tokio = { version = "1.17.0", features = ["macros", "rt-multi-thread"] }
-tonic = { version = "0.7.1", features = ["tls-webpki-roots"] }
-tower-http = { version = "0.2.5", features = ["fs", "trace"] }
-tracing = "0.1.34"
-tracing-subscriber = { version = "0.3.11", features = ["env-filter"] }
-uuid = { version = "0.8.2", features = ["v4"] }
+prost = "0.12.6"
+regex = "1.10.4"
+reqwest = { version = "0.12.4", default-features = false, features = ["rustls-tls"] }
+tokio = { version = "1.37.0", features = ["macros", "rt-multi-thread"] }
+tonic = { version = "0.11.0", features = ["tls-webpki-roots"] }
+tower-http = { version = "0.5.2", features = ["fs", "trace"] }
+tracing = "0.1.40"
+tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
+uuid = { version = "1.8.0", features = ["v4"] }
 
 [build-dependencies]
-tonic-build = "0.7.0"
+tonic-build = "0.11.0"
